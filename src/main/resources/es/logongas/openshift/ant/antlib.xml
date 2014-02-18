@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (C) 2014 Lorenzo Gonzalez
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<antlib>   
+    <taskdef name="addcartridge" classname="es.logongas.openshift.ant.AddCartridgeTask" />
+    <taskdef name="addenvironmentvariable" classname="es.logongas.openshift.ant.AddEnvironmentVariableTask" />
+    <taskdef name="addpublickey" classname="es.logongas.openshift.ant.AddPublicKeyTask" />
+    <taskdef name="createapplication" classname="es.logongas.openshift.ant.CreateApplicationTask" />
+    <taskdef name="createdomain" classname="es.logongas.openshift.ant.CreateDomainTask" />
+    <taskdef name="createkeypair" classname="es.logongas.openshift.ant.CreateKeyPairTask" />
+    <taskdef name="destroyapplication" classname="es.logongas.openshift.ant.DestroyApplicationTask" />
+    <taskdef name="destroydomain" classname="es.logongas.openshift.ant.DestroyDomainTask" />
+    <taskdef name="removeallpublickeys" classname="es.logongas.openshift.ant.RemoveAllPublicKeysTask" />
+    <taskdef name="removecartridge" classname="es.logongas.openshift.ant.RemoveCartridgeTask" />
+    <taskdef name="removeenvironmentvariable" classname="es.logongas.openshift.ant.RemoveEnvironmentVariableTask" />
+    <taskdef name="removepublickey" classname="es.logongas.openshift.ant.RemovePublicKeyTask" />
+    <taskdef name="restartapplication" classname="es.logongas.openshift.ant.RestartApplicationTask" />
+    <taskdef name="startapplication" classname="es.logongas.openshift.ant.StartApplicationTask" />
+    <taskdef name="stopapplication" classname="es.logongas.openshift.ant.StopApplicationTask" />
+    <taskdef name="gitcloneapplication" classname="es.logongas.openshift.ant.GitCloneApplicationTask" />
+    <taskdef name="gitpushapplication" classname="es.logongas.openshift.ant.GitPushApplicationTask" />
+
+    <macrodef name="git">
+        <attribute name="command" />
+        <attribute name="options" default="" />
+        <attribute name="dir" default="" />
+        <attribute name="failerror" default="false" />
+        <element name="args" optional="true" />
+        <sequential>
+            <echo message="git dir @{dir}" />
+            <echo message="git @{command}" />
+            <exec executable="git" dir="@{dir}" failonerror="@{failerror}">
+                <arg line="@{command} @{options}" />
+                <args />
+            </exec>
+        </sequential>
+    </macrodef>    
+</antlib>
