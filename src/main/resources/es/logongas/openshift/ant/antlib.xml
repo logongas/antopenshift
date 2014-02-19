@@ -29,13 +29,17 @@
     <taskdef name="removecartridge" classname="es.logongas.openshift.ant.RemoveCartridgeTask" />
     <taskdef name="removeenvironmentvariable" classname="es.logongas.openshift.ant.RemoveEnvironmentVariableTask" />
     <taskdef name="removepublickey" classname="es.logongas.openshift.ant.RemovePublicKeyTask" />
+    <taskdef name="addalias" classname="es.logongas.openshift.ant.AddAliasTask" />
+    <taskdef name="removealias" classname="es.logongas.openshift.ant.RemoveAliasTask" />    
     <taskdef name="restartapplication" classname="es.logongas.openshift.ant.RestartApplicationTask" />
     <taskdef name="startapplication" classname="es.logongas.openshift.ant.StartApplicationTask" />
     <taskdef name="stopapplication" classname="es.logongas.openshift.ant.StopApplicationTask" />
     <taskdef name="gitcloneapplication" classname="es.logongas.openshift.ant.GitCloneApplicationTask" />
     <taskdef name="gitpushapplication" classname="es.logongas.openshift.ant.GitPushApplicationTask" />
-
+        
+    
     <macrodef name="git">
+        <!-- https://github.com/FrancisVarga/ant-git-macros/blob/master/LICENSE.md -->
         <attribute name="command" />
         <attribute name="options" default="" />
         <attribute name="dir" default="" />

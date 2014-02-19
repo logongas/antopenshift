@@ -353,6 +353,48 @@ public class OpenShiftUtil {
         return user;
     }
 
+    public void addAlias(String userName, String password, String domainName, String applicationName, String alias) {
+        try {
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            application.addAlias(alias);
+        } catch (RuntimeException ex) {
+            //Aunque de error comprobamos si realmente está
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            if (application.getAliases().contains(alias) == false) {
+                throw ex;
+            }
+        }
+    }
+    
+    public void removeAlias(String userName, String password, String domainName, String applicationName, String alias) {
+        try {
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            application.removeAlias(alias);
+        } catch (RuntimeException ex) {
+            //Aunque de error comprobamos si realmente está
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            if (application.getAliases().contains(alias) == true) {
+                throw ex;
+            }
+        }
+    }
+    
     public void gitCloneApplication(String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException {
         IUser user = getUser(userName, password);
 
