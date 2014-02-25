@@ -25,6 +25,8 @@
     <taskdef name="createkeypair" classname="es.logongas.openshift.ant.CreateKeyPairTask" />
     <taskdef name="destroyapplication" classname="es.logongas.openshift.ant.DestroyApplicationTask" />
     <taskdef name="destroydomain" classname="es.logongas.openshift.ant.DestroyDomainTask" />
+    <taskdef name="destroyallapplications" classname="es.logongas.openshift.ant.DestroyAllApplicationsTask" />
+    <taskdef name="destroyalldomains" classname="es.logongas.openshift.ant.DestroyAllDomainsTask" />    
     <taskdef name="removeallpublickeys" classname="es.logongas.openshift.ant.RemoveAllPublicKeysTask" />
     <taskdef name="removecartridge" classname="es.logongas.openshift.ant.RemoveCartridgeTask" />
     <taskdef name="removeenvironmentvariable" classname="es.logongas.openshift.ant.RemoveEnvironmentVariableTask" />

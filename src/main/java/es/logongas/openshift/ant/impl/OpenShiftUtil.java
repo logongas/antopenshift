@@ -99,6 +99,27 @@ public class OpenShiftUtil {
         }
     }
 
+    public void destroyAllDomains(String userName, String password, boolean force) {
+        try {
+            IUser user = getUser(userName, password);
+
+            List<IDomain> domains = user.getDomains();
+
+            for (IDomain domain : domains) {
+                domain.destroy(force);
+            }
+
+        } catch (RuntimeException ex) {
+            //Aunque de error comprobamos si realmente está
+            IUser user = getUser(userName, password);
+
+            if (user.getDomains().isEmpty() == false) {
+                throw ex;
+            }
+
+        }
+    }
+
     public void createApplication(String userName, String password, String domainName, String applicationName, String cartridgeName, boolean scalable, String gearProfileName) {
         try {
             IUser user = getUser(userName, password);
@@ -150,6 +171,28 @@ public class OpenShiftUtil {
             IApplication application = domain.getApplicationByName(applicationName);
 
             if (application != null) {
+                throw ex;
+            }
+        }
+    }
+
+    public void destroyAllApplications(String userName, String password, String domainName) {
+        try {
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            List<IApplication> applications = domain.getApplications();
+            for (IApplication application : applications) {
+                application.destroy();
+            }
+        } catch (RuntimeException ex) {
+            //Aunque de error comprobamos si realmente está
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            List<IApplication> applications = domain.getApplications();
+
+            if (applications.isEmpty() == false) {
                 throw ex;
             }
         }
@@ -329,7 +372,7 @@ public class OpenShiftUtil {
             //Aunque de error comprobamos si realmente está
             IUser user = getUser(userName, password);
 
-            if (user.getSSHKeys().isEmpty()==false) {
+            if (user.getSSHKeys().isEmpty() == false) {
                 throw ex;
             }
         }
@@ -373,7 +416,7 @@ public class OpenShiftUtil {
             }
         }
     }
-    
+
     public void removeAlias(String userName, String password, String domainName, String applicationName, String alias) {
         try {
             IUser user = getUser(userName, password);
@@ -394,7 +437,7 @@ public class OpenShiftUtil {
             }
         }
     }
-    
+
     public void gitCloneApplication(String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException {
         IUser user = getUser(userName, password);
 
