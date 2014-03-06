@@ -21,7 +21,7 @@ Añade un alias a una aplicación.
 Añade un cartucho a una aplicación
 
 ```
-<addalias userName="myaccount@mymailcom" password="s3cret" domainName="mydomain" applicationName="myapp" cartridgeName="mysql" />
+<addcartridge userName="myaccount@mymailcom" password="s3cret" domainName="mydomain" applicationName="myapp" cartridgeName="mysql" />
 ```
 
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
