@@ -38,6 +38,8 @@
     <taskdef name="stopapplication" classname="es.logongas.openshift.ant.StopApplicationTask" />
     <taskdef name="gitcloneapplication" classname="es.logongas.openshift.ant.GitCloneApplicationTask" />
     <taskdef name="gitpushapplication" classname="es.logongas.openshift.ant.GitPushApplicationTask" />
+    <taskdef name="applicationpropertytask" classname="es.logongas.openshift.ant.ApplicationPropertyTask" />
+    
         
     
     <macrodef name="git">

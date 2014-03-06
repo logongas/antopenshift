@@ -379,13 +379,13 @@ public class OpenShiftUtil {
 
     }
 
-    public void createKeyPair(String fileName) throws Exception {
+    public void createKeyPair(String filePrivateKey) throws Exception {
         int type = KeyPair.RSA;
         JSch jsch = new JSch();
         KeyPair kpair = KeyPair.genKeyPair(jsch, type);
         kpair.setPassphrase("");
-        kpair.writePrivateKey(fileName);
-        kpair.writePublicKey(fileName + ".pub", "clave publica");
+        kpair.writePrivateKey(filePrivateKey);
+        kpair.writePublicKey(filePrivateKey + ".pub", "clave publica");
         kpair.dispose();
     }
 
@@ -467,6 +467,34 @@ public class OpenShiftUtil {
         }
 
     }
+
+    public String getSshUrl(String userName, String password, String domainName, String applicationName) {
+
+        IUser user = getUser(userName, password);
+
+        IDomain domain = user.getDomain(domainName);
+        IApplication application = domain.getApplicationByName(applicationName);
+        return application.getSshUrl();
+        
+    }
+    public String getUUID(String userName, String password, String domainName, String applicationName) {
+
+        IUser user = getUser(userName, password);
+
+        IDomain domain = user.getDomain(domainName);
+        IApplication application = domain.getApplicationByName(applicationName);
+        return application.getUUID();
+        
+    }    
+    public String getGitUrl(String userName, String password, String domainName, String applicationName) {
+
+        IUser user = getUser(userName, password);
+
+        IDomain domain = user.getDomain(domainName);
+        IApplication application = domain.getApplicationByName(applicationName);
+        return application.getGitUrl();
+        
+    }    
 
     private class CustomConfigSessionFactory extends JschConfigSessionFactory {
 
