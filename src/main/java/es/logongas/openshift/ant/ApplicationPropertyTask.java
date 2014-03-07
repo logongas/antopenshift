@@ -28,7 +28,7 @@ public class ApplicationPropertyTask extends AbstractApplicationTask {
         } else if ("GitUrl".equalsIgnoreCase(getApplicationProperty())) {
             value = openShiftUtil.getGitUrl(userName, password, domainName, applicationName);
         } else {
-            throw new BuildException("Los posibles valores de 'applicationProperty son  'SshUrl' , 'GitUrl' o 'UUID'");
+            throw new BuildException("Los posibles valores de 'applicationProperty' son  'SshUrl' , 'GitUrl' o 'UUID'");
         }
 
         getProject().setNewProperty(getName(), value);
