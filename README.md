@@ -152,11 +152,11 @@ La tarea crea un fichero con la clave privada en el fichero llamado `filePrivate
 
 ```
 <createkeypair     
-    filePrivateKey="/homa/myuser/.ssh/id_rsa"
+    filePrivateKey="/home/myuser/.ssh/id_rsa"
 />
 ```
 
-  # `filePrivateKey` : Nombre del fichero de la clave privada. La clave pública se llamará igual pero se le añade la extensión ".pub".
+  * `filePrivateKey` : Nombre del fichero de la clave privada. La clave pública se llamará igual pero se le añade la extensión ".pub".
   
 
 # destroyallapplications
