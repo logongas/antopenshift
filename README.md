@@ -9,7 +9,7 @@ Añade un alias a una aplicación.
 
 ```
 <addalias 
-    userName="myaccount@mymailcom" 
+    userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
     applicationName="myapp" 
@@ -27,7 +27,7 @@ Añade un cartucho a una aplicación
 
 ```
 <addcartridge     
-    userName="myaccount@mymailcom" 
+    userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
     applicationName="myapp"  
@@ -47,7 +47,7 @@ Añade una nueva variable de entorno a la aplicación
 
 ```
 <addenvironmentvariable     
-    userName="myaccount@mymailcom" 
+    userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
     applicationName="myapp"  
@@ -67,7 +67,7 @@ Añade una nueva variable de entorno a la aplicación
 
 ```
 <addpublickey     
-    userName="myaccount@mymailcom" 
+    userName="myaccount@mymail.com" 
     password="s3cret" 
     name="default" 
     filePublicKey="/home/lorenzo/.ssh/id_rsa.pub"
@@ -87,7 +87,7 @@ Crea una nueva propiedad de Ant con el valor de una propiedad específica de una
 
 ```
 <applicationproperty     
-    userName="myaccount@mymailcom" 
+    userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
     applicationName="myapp"  
@@ -110,7 +110,7 @@ Crea una nueva aplicación dentro de un dominio
 
 ```
 <createapplication     
-    userName="myaccount@mymailcom" 
+    userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
     applicationName="myapp"  
@@ -127,3 +127,103 @@ Crea una nueva aplicación dentro de un dominio
   * `cartridgeName` : Nombre del cartucho principal de la aplicación . Es el que define la tecnología. Sus posibles valores se obtienen de [IStandaloneCartridge](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java)
   * `gearProfileName` : El *tamaño* del gear. Sus posibles valores se obtienen de [IGearProfile](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/IGearProfile.java).
 
+## createdomain
+
+Crea un nuevo dominio 
+
+```
+<createdomain     
+    userName="myaccount@mymail.com" 
+    password="s3cret" 
+    domainName="mydomain" 
+/>
+```
+
+  * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
+  * `password`:Contraseña de la cuenta de OpenShift
+  * `domainName`:Nombre del nuevo dominio a añadir
+
+
+## createkeypair
+
+Crea en el sistema de archivos local un nuevo par de claves publica/privada para ser usadas por SSH para conectarse a los repositorios de git de OpenShit o para conectarse por SSH a las máquinas de OpenShift.
+
+La tarea crea un fichero con la clave privada en el fichero llamado `filePrivateKey` y la clave pública con el fichero llamada igual pero acabado en `.pub`
+
+```
+<createkeypair     
+    filePrivateKey="/homa/myuser/.ssh/id_rsa"
+/>
+```
+
+  # `filePrivateKey` : Nombre del fichero de la clave privada. La clave pública se llamará igual pero se le añade la extensión ".pub".
+  
+
+# destroyallapplications
+
+Destruye todas las aplicaciones de un dominio.
+
+```
+<destroyallapplications     
+    userName="myaccount@mymail.com" 
+    password="s3cret" 
+    domainName="mydomain" 
+/>
+```
+
+  * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
+  * `password`:Contraseña de la cuenta de OpenShift
+  * `domainName`:Nombre del dominio al que se le borran todas las aplicaciones que tiene.
+
+## destroyalldomains
+
+Borra todos los dominios de una cuenta
+
+```
+<destroyalldomains     
+    userName="myaccount@mymail.com" 
+    password="s3cret" 
+    force="true" 
+/>
+```
+
+  * `userName` : Nombre de la cuenta de OpenShift (Es el correo electrónico) de la que se borran todos los dominios.
+  * `password` : Contraseña de la cuenta de OpenShift.
+  * `force` : Si `force` vale `false` no se borrará el dominio si contiene aplicaciones. Pero si `force` vale `true` se borrarán tambien todas las aplicaciones que contiene.
+
+## destroyapplication
+
+Crea una nueva propiedad de Ant con el valor de una propiedad específica de una aplicación.
+
+```
+<destroyapplication     
+    userName="myaccount@mymail.com" 
+    password="s3cret" 
+    domainName="mydomain" 
+    applicationName="myapp"  
+/>
+```
+
+  * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
+  * `password`:Contraseña de la cuenta de OpenShift
+  * `domainName`:Nombre del dominio donde se encuentra la aplicación
+  * `applicationName`:Nombre de la aplicación a borrar
+
+
+## destroydomain
+
+Crea una nueva propiedad de Ant con el valor de una propiedad específica de una aplicación.
+
+```
+<destroydomain     
+    userName="myaccount@mymail.com" 
+    password="s3cret" 
+    domainName="mydomain" 
+    force="true"
+/>
+```
+
+  * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
+  * `password`:Contraseña de la cuenta de OpenShift
+  * `domainName`:Nombre del dominio donde se encuentra la aplicación
+  * `force` : Si `force` vale `false` no se borrará el dominio si contiene aplicaciones. Pero si `force` vale `true` se borrarán tambien todas las aplicaciones que contiene el dominio.
