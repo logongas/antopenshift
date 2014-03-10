@@ -115,11 +115,15 @@ Crea una nueva aplicación dentro de un dominio
     domainName="mydomain" 
     applicationName="myapp"  
     cartridgeName="jbossews"
-    gearProfileName=""
+    gearProfileName="small"
     scalable="true"
 />
 ```
 
-https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java
+  * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
+  * `password`:Contraseña de la cuenta de OpenShift
+  * `domainName`:Nombre del dominio al que se le añade la aplicación
+  * `applicationName`:Nombre de la nueva aplicación
+  * `cartridgeName` : Nombre del cartucho principal de la aplicación . Es el que define la tecnología. Sus posibles valores se obtienen de [IStandaloneCartridge](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java)
+  * `gearProfileName` : El *tamaño* del gear. Sus posibles valores se obtienen de [IStandaloneCartridge](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java).
 
-https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/IGearProfile.java
