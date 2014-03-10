@@ -41,7 +41,7 @@ Añade un cartucho a una aplicación
   * `applicationName`:Nombre de la aplicación
   * `cartridgeName` : Nombre del cartucho a añadir. La lista de posibles valores está en: [IEmbeddableCartridge.java] (https://github.com/openshift/openshift-java-client/blob/master/src/main/java/com/openshift/client/cartridge/IEmbeddableCartridge.java)
 
-# addenvironmentvariable
+## addenvironmentvariable
 
 Añade una nueva variable de entorno a la aplicación
 
@@ -63,7 +63,7 @@ Añade una nueva variable de entorno a la aplicación
   * `environmentVariableName` : Nombre de la variable de entorno
   * `environmentVariableValue` : Valor de la variable de entorno
 
-# addpublickey
+## addpublickey
 
 ```
 <addpublickey     
@@ -81,7 +81,7 @@ Añade una nueva clave pública a la cuenta de OpenShift
   * `name`: Nombre de la clave pública que se añade
   * `filePublicKey` : Fichero donde se encuentra la clave pública. Normalmente es un fichero con la extensión `.pub`
 
-# applicationproperty
+## applicationproperty
 
 Crea una nueva propiedad de Ant con el valor de una propiedad específica de una aplicación.
 
@@ -104,3 +104,22 @@ Crea una nueva propiedad de Ant con el valor de una propiedad específica de una
   * `applicationProperty` : Nombre de lo que se quiere asignar. Sus posibles valores son 'SshUrl' , 'GitUrl' o 'UUID'
 
 
+## createapplication
+
+Crea una nueva aplicación dentro de un dominio
+
+```
+<createapplication     
+    userName="myaccount@mymailcom" 
+    password="s3cret" 
+    domainName="mydomain" 
+    applicationName="myapp"  
+    cartridgeName="jbossews"
+    gearProfileName=""
+    scalable="true"
+/>
+```
+
+https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java
+
+https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/IGearProfile.java
