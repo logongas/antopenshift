@@ -125,5 +125,5 @@ Crea una nueva aplicación dentro de un dominio
   * `domainName`:Nombre del dominio al que se le añade la aplicación
   * `applicationName`:Nombre de la nueva aplicación
   * `cartridgeName` : Nombre del cartucho principal de la aplicación . Es el que define la tecnología. Sus posibles valores se obtienen de [IStandaloneCartridge](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java)
-  * `gearProfileName` : El *tamaño* del gear. Sus posibles valores se obtienen de [IStandaloneCartridge](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/cartridge/IStandaloneCartridge.java).
+  * `gearProfileName` : El *tamaño* del gear. Sus posibles valores se obtienen de [IGearProfile](https://github.com/openshift/openshift-java-client/blob/2.4.x/src/main/java/com/openshift/client/IGearProfile.java).
 
