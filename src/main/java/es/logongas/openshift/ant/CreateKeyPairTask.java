@@ -26,29 +26,29 @@ import org.apache.tools.ant.Task;
 public class CreateKeyPairTask extends Task {
 
     protected OpenShiftUtil openShiftUtil = new OpenShiftUtil();
-    private String filePrivateKey;
+    private String privateKeyFile;
 
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.createKeyPair(filePrivateKey);
+            openShiftUtil.createKeyPair(privateKeyFile);
         } catch (Exception ex) {
             throw new BuildException(ex);
         }
     }
 
     /**
-     * @return the filePrivateKey
+     * @return the privateKeyFile
      */
-    public String getFilePrivateKey() {
-        return filePrivateKey;
+    public String getPrivateKeyFile() {
+        return privateKeyFile;
     }
 
     /**
-     * @param filePrivateKey the filePrivateKey to set
+     * @param privateKeyFile the privateKeyFile to set
      */
-    public void setFilePrivateKey(String filePrivateKey) {
-        this.filePrivateKey = filePrivateKey;
+    public void setPrivateKeyFile(String privateKeyFile) {
+        this.privateKeyFile = privateKeyFile;
     }
 
 
