@@ -327,11 +327,11 @@ public class OpenShiftUtil {
         }
     }
 
-    public void addPublicKey(String userName, String password, String name, String filePublicKey) throws Exception {
+    public void addPublicKey(String userName, String password, String name, String publicKeyFile) throws Exception {
         try {
             IUser user = getUser(userName, password);
 
-            ISSHPublicKey iSSHPublicKey = new SSHPublicKey(filePublicKey);
+            ISSHPublicKey iSSHPublicKey = new SSHPublicKey(publicKeyFile);
 
             user.putSSHKey(name, iSSHPublicKey);
         } catch (RuntimeException ex) {
@@ -379,13 +379,13 @@ public class OpenShiftUtil {
 
     }
 
-    public void createKeyPair(String filePrivateKey) throws Exception {
+    public void createKeyPair(String privateKeyFile) throws Exception {
         int type = KeyPair.RSA;
         JSch jsch = new JSch();
         KeyPair kpair = KeyPair.genKeyPair(jsch, type);
         kpair.setPassphrase("");
-        kpair.writePrivateKey(filePrivateKey);
-        kpair.writePublicKey(filePrivateKey + ".pub", "clave publica");
+        kpair.writePrivateKey(privateKeyFile);
+        kpair.writePublicKey(privateKeyFile + ".pub", "clave publica");
         kpair.dispose();
     }
 
@@ -438,6 +438,29 @@ public class OpenShiftUtil {
         }
     }
 
+    public void removeAllAlias(String userName, String password, String domainName, String applicationName) {
+        try {
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            for (String alias : application.getAliases()) {
+                application.removeAlias(alias);
+            }
+        } catch (RuntimeException ex) {
+            //Aunque de error comprobamos si realmente está
+            IUser user = getUser(userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            if (application.getAliases().isEmpty()==false) {
+                throw ex;
+            }
+        }
+    }
+
     public void gitCloneApplication(String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException {
         IUser user = getUser(userName, password);
 
@@ -475,8 +498,9 @@ public class OpenShiftUtil {
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
         return application.getSshUrl();
-        
+
     }
+
     public String getUUID(String userName, String password, String domainName, String applicationName) {
 
         IUser user = getUser(userName, password);
@@ -484,8 +508,9 @@ public class OpenShiftUtil {
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
         return application.getUUID();
-        
-    }    
+
+    }
+
     public String getGitUrl(String userName, String password, String domainName, String applicationName) {
 
         IUser user = getUser(userName, password);
@@ -493,15 +518,15 @@ public class OpenShiftUtil {
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
         return application.getGitUrl();
-        
-    }    
+
+    }
 
     private class CustomConfigSessionFactory extends JschConfigSessionFactory {
 
-        String filePrivateKey;
+        String privateKeyFile;
 
-        public CustomConfigSessionFactory(String filePrivateKey) {
-            this.filePrivateKey = filePrivateKey;
+        public CustomConfigSessionFactory(String privateKeyFile) {
+            this.privateKeyFile = privateKeyFile;
         }
 
         @Override
@@ -509,7 +534,7 @@ public class OpenShiftUtil {
             session.setConfig("StrictHostKeyChecking", "no");
             try {
                 JSch jsch = getJSch(host, FS.DETECTED);
-                jsch.addIdentity(filePrivateKey);
+                jsch.addIdentity(privateKeyFile);
             } catch (JSchException ex) {
                 throw new RuntimeException(ex);
             }
