@@ -48,7 +48,7 @@
         <attribute name="command" />
         <attribute name="options" default="" />
         <attribute name="dir" default="" />
-        <attribute name="failerror" default="false" />
+        <attribute name="failerror" default="true" />
         <element name="args" optional="true" />
         <sequential>
             <echo message="git dir @{dir}" />
