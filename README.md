@@ -376,7 +376,7 @@ Quita un cartridge de una aplicación. No quita el cartucho *principal* sino los
 Quita la definición de una variable de entorno
 
 ```
-<removecartridge 
+<removeenvironmentvariable 
     userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
@@ -431,7 +431,7 @@ Reinicia una aplicación
 Inicia una aplicación
 
 ```
-<restartapplication 
+<startapplication 
     userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
