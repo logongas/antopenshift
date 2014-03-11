@@ -15,18 +15,18 @@
  */
 package es.logongas.openshift.ant;
 
-import es.logongas.openshift.ant.impl.AbstractDomainTask;
+import es.logongas.openshift.ant.impl.AbstractApplicationTask;
 import org.apache.tools.ant.BuildException;
 
 /**
  *
  * @author Lorenzo
  */
-public class DestroyAllApplicationsTask extends AbstractDomainTask {
-    
+public class RemoveAllAliasTask extends AbstractApplicationTask {
+
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.destroyAllApplications(userName, password, domainName);
+        openShiftUtil.removeAllAlias(userName, password, domainName, applicationName);
     }
     
 }
