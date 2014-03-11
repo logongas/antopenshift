@@ -25,6 +25,7 @@ Tareas de Ant para automatizar OpenShift
  - [restartapplication](#restartapplication)
  - [startapplication](#startapplication)
  - [stopapplication](#stopapplication)
+ - [git](#git)
 
 
 
@@ -461,3 +462,22 @@ Detiene una aplicación
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
   * `applicationName`:Nombre de la aplicación a detener
+  * 
+
+## git
+
+ejecutar órdenes de Git
+
+```
+<git 
+    command="commit" 
+    options="-am &quot;Mensaje del commit&quot;" 
+    dir="." 
+    failerror="true" 
+/>
+```
+
+  * `command`: La orden de git a ejecutar
+  * `options`: Los parámetros de la orden a ejecutar
+  * `dir`: Opcional. Directorio donde se ajecuta el comando de git
+  * `failerror`: Se para el build si falla la orden
