@@ -32,7 +32,8 @@
     <taskdef name="removeenvironmentvariable" classname="es.logongas.openshift.ant.RemoveEnvironmentVariableTask" />
     <taskdef name="removepublickey" classname="es.logongas.openshift.ant.RemovePublicKeyTask" />
     <taskdef name="addalias" classname="es.logongas.openshift.ant.AddAliasTask" />
-    <taskdef name="removealias" classname="es.logongas.openshift.ant.RemoveAliasTask" />    
+    <taskdef name="removealias" classname="es.logongas.openshift.ant.RemoveAliasTask" />  
+    <taskdef name="removeallalias" classname="es.logongas.openshift.ant.RemoveAllAliasTask" />    
     <taskdef name="restartapplication" classname="es.logongas.openshift.ant.RestartApplicationTask" />
     <taskdef name="startapplication" classname="es.logongas.openshift.ant.StartApplicationTask" />
     <taskdef name="stopapplication" classname="es.logongas.openshift.ant.StopApplicationTask" />
