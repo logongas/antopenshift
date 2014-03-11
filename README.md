@@ -95,7 +95,7 @@ Añade una nueva variable de entorno a la aplicación
 <addpublickey     
     userName="myaccount@mymail.com" 
     password="s3cret" 
-    name="default" 
+    publicKeyName="default" 
     publicKeyFile="/home/lorenzo/.ssh/id_rsa.pub"
 />
 ```
@@ -104,7 +104,7 @@ Añade una nueva clave pública a la cuenta de OpenShift
 
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
-  * `name`: Nombre de la clave pública que se añade
+  * `publicKeyName`: Nombre de la clave pública que se añade
   * `publicKeyFile` : Fichero donde se encuentra la clave pública. Normalmente es un fichero con la extensión `.pub`
 
 ## applicationproperty
@@ -400,13 +400,13 @@ Elimina una clave pública que permite acceder a OpenShift
 <removepublickey 
     userName="myaccount@mymail.com" 
     password="s3cret" 
-    name="default"
+    publicKeyName="default"
 />
 ```
 
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
-  * `name` : Nombre de la calve pública
+  * `publicKeyName` : Nombre de la clave pública
 
 ## restartapplication
 

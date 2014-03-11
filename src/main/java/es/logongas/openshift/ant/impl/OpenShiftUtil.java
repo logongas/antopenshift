@@ -327,33 +327,33 @@ public class OpenShiftUtil {
         }
     }
 
-    public void addPublicKey(String userName, String password, String name, String publicKeyFile) throws Exception {
+    public void addPublicKey(String userName, String password, String publicKeyName, String publicKeyFile) throws Exception {
         try {
             IUser user = getUser(userName, password);
 
             ISSHPublicKey iSSHPublicKey = new SSHPublicKey(publicKeyFile);
 
-            user.putSSHKey(name, iSSHPublicKey);
+            user.putSSHKey(publicKeyName, iSSHPublicKey);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
             IUser user = getUser(userName, password);
 
-            if (user.getSSHKeyByName(name) == null) {
+            if (user.getSSHKeyByName(publicKeyName) == null) {
                 throw ex;
             }
         }
     }
 
-    public void removePublicKey(String userName, String password, String name) throws Exception {
+    public void removePublicKey(String userName, String password, String publicKeyName) throws Exception {
         try {
             IUser user = getUser(userName, password);
 
-            user.deleteKey(name);
+            user.deleteKey(publicKeyName);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
             IUser user = getUser(userName, password);
 
-            if (user.getSSHKeyByName(name) != null) {
+            if (user.getSSHKeyByName(publicKeyName) != null) {
                 throw ex;
             }
         }

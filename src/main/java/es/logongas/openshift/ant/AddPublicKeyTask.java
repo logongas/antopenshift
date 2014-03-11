@@ -23,34 +23,20 @@ import org.apache.tools.ant.BuildException;
  * @author Lorenzo
  */
 public class AddPublicKeyTask extends AbstractOpenShiftTask {
-    private String name;
+    private String publicKeyName;
     private String publicKeyFile;
     
     
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.addPublicKey(userName, password, name, publicKeyFile);
+            openShiftUtil.addPublicKey(userName, password, publicKeyName, publicKeyFile);
         } catch (Exception ex) {
             throw new BuildException(ex);
         }
     }
     
 
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * @return the publicKeyFile
@@ -64,6 +50,20 @@ public class AddPublicKeyTask extends AbstractOpenShiftTask {
      */
     public void setPublicKeyFile(String publicKeyFile) {
         this.publicKeyFile = publicKeyFile;
+    }
+
+    /**
+     * @return the publicKeyName
+     */
+    public String getPublicKeyName() {
+        return publicKeyName;
+    }
+
+    /**
+     * @param publicKeyName the publicKeyName to set
+     */
+    public void setPublicKeyName(String publicKeyName) {
+        this.publicKeyName = publicKeyName;
     }
     
 }

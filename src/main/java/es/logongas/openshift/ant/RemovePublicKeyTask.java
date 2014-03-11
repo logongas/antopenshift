@@ -24,31 +24,33 @@ import org.apache.tools.ant.BuildException;
  * @author Lorenzo
  */
 public class RemovePublicKeyTask extends AbstractOpenShiftTask  {
-     private String name;
+     private String publicKeyName;
 
     
     
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.removePublicKey(userName, password, name);
+            openShiftUtil.removePublicKey(userName, password, publicKeyName);
         } catch (Exception ex) {
             throw new BuildException(ex);
         }
     }
-    
 
     /**
-     * @return the name
+     * @return the publicKeyName
      */
-    public String getName() {
-        return name;
+    public String getPublicKeyName() {
+        return publicKeyName;
     }
 
     /**
-     * @param name the name to set
+     * @param publicKeyName the publicKeyName to set
      */
-    public void setName(String name) {
-        this.name = name;
-    }   
+    public void setPublicKeyName(String publicKeyName) {
+        this.publicKeyName = publicKeyName;
+    }
+    
+
+  
 }
