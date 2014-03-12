@@ -471,13 +471,12 @@ ejecutar órdenes de Git
 ```
 <git 
     command="commit" 
-    options="-am &quot;Mensaje del commit&quot;" 
+    options="-am mensaje" 
     dir="." 
-    failerror="true" 
 />
 ```
 
   * `command`: La orden de git a ejecutar
   * `options`: Los parámetros de la orden a ejecutar
-  * `dir`: Opcional. Directorio donde se ajecuta el comando de git
-  * `failerror`: Se para el build si falla la orden
+  * `dir`: Opcional. Por defecto es el directorio actual. Directorio donde se ajecuta el comando de git. Será el directorio donde está el repositorio de git.
+  * `failerror`: Opcional. Por defecto `true` . Se para el build si falla la orden.
