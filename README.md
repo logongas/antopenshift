@@ -128,7 +128,7 @@ Crea una nueva propiedad de Ant con el valor de una propiedad específica de una
   * `domainName`:Nombre del dominio
   * `applicationName`:Nombre de la aplicación
   * `name` : Nombre de la variable de Ant a la que se le quiere asignar el valor
-  * `applicationProperty` : Nombre de lo que se quiere asignar. Sus posibles valores son 'SshUrl' , 'GitUrl' o 'UUID'
+  * `applicationProperty` : Nombre de lo que se quiere asignar. Sus posibles valores son 'SshUrl' , 'SshUser' , 'SshPort' , 'SshHost', 'GitUrl' o 'UUID'
 
 
 ## createapplication
