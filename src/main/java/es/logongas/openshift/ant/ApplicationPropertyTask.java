@@ -33,6 +33,15 @@ public class ApplicationPropertyTask extends AbstractApplicationTask {
 
         if ("SshUrl".equalsIgnoreCase(getApplicationProperty())) {
             value = openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+        } else if ("SshUser".equalsIgnoreCase(getApplicationProperty())) {
+            String sshUrl=openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            value = getSSHInfo(sshUrl).user;
+        } else if ("SshPort".equalsIgnoreCase(getApplicationProperty())) {
+            String sshUrl=openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            value = getSSHInfo(sshUrl).port;
+        } else if ("SshHost".equalsIgnoreCase(getApplicationProperty())) {
+            String sshUrl=openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            value = getSSHInfo(sshUrl).host;            
         } else if ("UUID".equalsIgnoreCase(getApplicationProperty())) {
             value = openShiftUtil.getUUID(userName, password, domainName, applicationName);
         } else if ("GitUrl".equalsIgnoreCase(getApplicationProperty())) {
@@ -72,4 +81,35 @@ public class ApplicationPropertyTask extends AbstractApplicationTask {
         this.applicationProperty = applicationProperty;
     }
 
+    
+    private class SSHInfo {
+        String host;
+        String user;
+        String port;
+    }
+    
+    
+    private SSHInfo getSSHInfo(String sshUrl) {
+        SSHInfo sshInfo=new SSHInfo();
+        
+        sshUrl=sshUrl.replaceAll("ssh://", "");
+        
+        if (sshUrl.indexOf("@")<=0) {
+            throw new RuntimeException("No existe información del usuario");
+        }
+       
+        
+        sshInfo.user=sshUrl.substring(0, sshUrl.indexOf("@"));
+
+        if (sshUrl.indexOf(":")>0) {
+            sshInfo.port=sshUrl.substring(sshUrl.indexOf(":")+1);
+            sshInfo.host=sshUrl.substring(sshUrl.indexOf("@")+1,sshUrl.indexOf(":"));
+        } else {
+            sshInfo.port="22";
+            sshInfo.host=sshUrl.substring(sshUrl.indexOf("@")+1);
+        }
+        
+        return sshInfo;
+    }
+    
 }
