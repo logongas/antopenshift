@@ -37,6 +37,7 @@ import com.openshift.client.cartridge.StandaloneCartridge;
 import com.openshift.internal.client.GearProfile;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 import org.eclipse.jgit.api.CloneCommand;
@@ -533,13 +534,16 @@ public class OpenShiftUtil {
         protected void configure(OpenSshConfig.Host host, Session session) {
             session.setConfig("StrictHostKeyChecking", "no");
             try {
+                Field field = Class.forName(OpenSshConfig.Host.class.getName()).getDeclaredField("strictHostKeyChecking");
+                field.setAccessible(true);
+                field.set(host,"no");
                 JSch jsch = getJSch(host, FS.DETECTED);
                 jsch.addIdentity(privateKeyFile);
-            } catch (JSchException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
-
+        
     }
 
 }
