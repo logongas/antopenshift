@@ -16,6 +16,7 @@ Tareas de Ant para automatizar OpenShift
  - [destroydomain](#destroydomain)
  - [gitcloneapplication](#gitcloneapplication)
  - [gitpushapplication](#gitpushapplication)
+ - [jenkinspasswordhashproperty](#jenkinspasswordhashproperty)
  - [removealias](#removealias)
  - [removeallalias](#removeallalias)
  - [removeallpublickeys](#removeallpublickeys)
@@ -299,6 +300,22 @@ Hace un push de un repositorio de una aplicación de OpenShift usando claves pri
   * `applicationName`:Nombre de la aplicación cuyo código se quiere hacer un push
   * `privateKeyFile` : fichero con la clave privada para poder acceder al repositorio
   * `path` : Ruta donde se encuentra el repositirio de Git.
+
+## jenkinspasswordhashproperty
+
+Genera el hash de una contraseña para ser usado en Jenkins
+
+```
+<jenkinspasswordhashproperty     
+    name="JENKINS_PASSWORD_HASH" 
+    password="s3cret" 
+    salt="NwIddP"
+/>
+```
+  * `name`: Nombre de la propiedad de ant en la que se guarda el hash. En el ejemplo anterio generará: `NwIddP:566533872ca75705e2c28a9cd0f3291800c3c90d4786e60f31e60a5cb95c20bd`
+  * `password`: Contraseña a usar
+  * `salt`: El salt que se usará. Si no se indica el valor se generará uno aleatoriamente.
+
 
 ## removealias
 

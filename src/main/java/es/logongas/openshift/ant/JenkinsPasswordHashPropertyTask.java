@@ -24,7 +24,7 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
  * 
  * @author Lorenzo
  */
-public class JenkinsPasswordPropertyTask extends Task {
+public class JenkinsPasswordHashPropertyTask extends Task {
     private String name;
     private String password;
     private String salt;

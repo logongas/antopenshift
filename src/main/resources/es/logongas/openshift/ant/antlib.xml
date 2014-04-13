@@ -40,6 +40,7 @@
     <taskdef name="gitcloneapplication" classname="es.logongas.openshift.ant.GitCloneApplicationTask" />
     <taskdef name="gitpushapplication" classname="es.logongas.openshift.ant.GitPushApplicationTask" />
     <taskdef name="applicationproperty" classname="es.logongas.openshift.ant.ApplicationPropertyTask" />
+    <taskdef name="jenkinspasswordhashproperty" classname="es.logongas.openshift.ant.JenkinsPasswordHashPropertyTask" />
     
         
     
