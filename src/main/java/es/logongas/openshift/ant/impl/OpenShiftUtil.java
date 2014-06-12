@@ -44,6 +44,7 @@ import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.TextProgressMonitor;
 import org.eclipse.jgit.transport.JschConfigSessionFactory;
 import org.eclipse.jgit.transport.OpenSshConfig;
 import org.eclipse.jgit.transport.PushResult;
@@ -474,8 +475,10 @@ public class OpenShiftUtil {
         CloneCommand cloneCommand = new CloneCommand();
         cloneCommand.setURI(gitURL);
         cloneCommand.setDirectory(new File(path));
-        cloneCommand.call();
         cloneCommand.setTimeout(20);
+        cloneCommand.setProgressMonitor(new TextProgressMonitor());
+        cloneCommand.call();
+        
 
     }
 
@@ -486,6 +489,7 @@ public class OpenShiftUtil {
         Git git = Git.open(new File(path));
 
         PushCommand push = git.push();
+        push.setProgressMonitor(new TextProgressMonitor());
         Iterable<PushResult> pushResults = push.call();
         for (PushResult pushResult : pushResults) {
             LOGGER.info(pushResult.getMessages());

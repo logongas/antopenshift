@@ -4,7 +4,7 @@
 
     <groupId>es.logongas.openshift.ant</groupId>
     <artifactId>antopenshift</artifactId>
-    <version>1.6.0</version>
+    <version>1.8.0</version>
     <packaging>jar</packaging>
 
     <name>antopenshift</name>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
-            <version>3.2.0.201312181205-r</version>
+            <version>3.3.2.201404171909-r</version>
         </dependency>
     </dependencies>
     <repositories>
