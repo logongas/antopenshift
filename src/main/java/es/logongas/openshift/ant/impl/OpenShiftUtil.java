@@ -490,6 +490,8 @@ public class OpenShiftUtil {
 
         PushCommand push = git.push();
         push.setProgressMonitor(new TextProgressMonitor());
+        LOGGER.info("Finalizado push");
+        LOGGER.info("Mostrando resultados");
         Iterable<PushResult> pushResults = push.call();
         for (PushResult pushResult : pushResults) {
             LOGGER.info(pushResult.getMessages());
