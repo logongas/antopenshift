@@ -475,6 +475,7 @@ public class OpenShiftUtil {
         cloneCommand.setURI(gitURL);
         cloneCommand.setDirectory(new File(path));
         cloneCommand.call();
+        cloneCommand.setTimeout(20);
 
     }
 
