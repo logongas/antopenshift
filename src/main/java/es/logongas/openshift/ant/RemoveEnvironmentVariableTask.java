@@ -28,7 +28,7 @@ public class RemoveEnvironmentVariableTask extends AbstractApplicationTask {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.removeEnvironmentVariable(userName, password, domainName, applicationName, environmentVariableName);
+        openShiftUtil.removeEnvironmentVariable(serverUrl, userName, password, domainName, applicationName, environmentVariableName);
     }
     
     /**

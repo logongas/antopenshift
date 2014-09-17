@@ -28,7 +28,7 @@ public class RemoveCartridgeTask extends AbstractApplicationTask {
 
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.removeCartridge(userName, password, domainName, applicationName, cartridgeName);
+        openShiftUtil.removeCartridge(serverUrl, userName, password, domainName, applicationName, cartridgeName);
     }    
     
     /**

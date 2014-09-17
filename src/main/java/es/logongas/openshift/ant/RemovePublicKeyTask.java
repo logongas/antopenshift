@@ -31,7 +31,7 @@ public class RemovePublicKeyTask extends AbstractOpenShiftTask  {
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.removePublicKey(userName, password, publicKeyName);
+            openShiftUtil.removePublicKey(serverUrl, userName, password, publicKeyName);
         } catch (Exception ex) {
             throw new BuildException(ex);
         }

@@ -29,7 +29,7 @@ public class StopApplicationTask extends AbstractApplicationTask  {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.stopApplication(userName, password, domainName, applicationName, force);
+        openShiftUtil.stopApplication(serverUrl, userName, password, domainName, applicationName, force);
     }   
 
     /**

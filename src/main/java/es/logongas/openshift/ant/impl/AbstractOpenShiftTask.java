@@ -24,6 +24,7 @@ import org.apache.tools.ant.Task;
 public abstract class AbstractOpenShiftTask extends Task  {
     protected OpenShiftUtil openShiftUtil=new OpenShiftUtil();
     
+    protected String serverUrl;
     protected String userName;
     protected String password;
 
@@ -53,6 +54,14 @@ public abstract class AbstractOpenShiftTask extends Task  {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getServerUrl() {
+        return serverUrl;
+    }
+
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
     }
     
     

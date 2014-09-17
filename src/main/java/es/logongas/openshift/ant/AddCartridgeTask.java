@@ -27,7 +27,7 @@ public class AddCartridgeTask extends AbstractApplicationTask {
 
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.addCartridge(userName, password, domainName, applicationName, cartridgeName);
+        openShiftUtil.addCartridge(serverUrl, userName, password, domainName, applicationName, cartridgeName);
     }    
     
     /**

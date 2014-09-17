@@ -31,7 +31,7 @@ public class GitCloneApplicationTask extends AbstractApplicationTask {
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.gitCloneApplication(userName, password, domainName, applicationName, privateKeyFile, path);
+            openShiftUtil.gitCloneApplication(serverUrl, userName, password, domainName, applicationName, privateKeyFile, path);
         } catch (GitAPIException ex) {
             throw new BuildException(ex);
         }

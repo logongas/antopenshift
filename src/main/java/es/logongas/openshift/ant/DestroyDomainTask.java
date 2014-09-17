@@ -28,7 +28,7 @@ public class DestroyDomainTask extends AbstractDomainTask {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.destroyDomain(userName, password, domainName, force);
+        openShiftUtil.destroyDomain(serverUrl, userName, password, domainName, force);
     }
 
     /**

@@ -30,7 +30,7 @@ public class AddPublicKeyTask extends AbstractOpenShiftTask {
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.addPublicKey(userName, password, publicKeyName, publicKeyFile);
+            openShiftUtil.addPublicKey(serverUrl, userName, password, publicKeyName, publicKeyFile);
         } catch (Exception ex) {
             throw new BuildException(ex);
         }

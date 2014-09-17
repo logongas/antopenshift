@@ -27,6 +27,6 @@ public class RestartApplicationTask extends AbstractApplicationTask  {
    
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.restartApplication(userName, password, domainName, applicationName);
+        openShiftUtil.restartApplication(serverUrl, userName, password, domainName, applicationName);
     }   
 }

@@ -29,7 +29,7 @@ public class CreateDomainTask extends AbstractDomainTask {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.createDomain(userName, password, domainName);
+        openShiftUtil.createDomain(serverUrl, userName, password, domainName);
     }
     
 }

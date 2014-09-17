@@ -28,7 +28,7 @@ public class AddEnvironmentVariableTask extends AbstractApplicationTask {
 
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.addEnvironmentVariable(userName, password, domainName, applicationName, environmentVariableName, environmentVariableValue);
+        openShiftUtil.addEnvironmentVariable(serverUrl, userName, password, domainName, applicationName, environmentVariableName, environmentVariableValue);
     }
     
     /**

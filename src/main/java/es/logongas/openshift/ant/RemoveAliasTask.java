@@ -28,7 +28,7 @@ public class RemoveAliasTask extends AbstractApplicationTask  {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.removeAlias(userName, password, domainName, applicationName, alias);
+        openShiftUtil.removeAlias(serverUrl, userName, password, domainName, applicationName, alias);
     }  
     
     /**

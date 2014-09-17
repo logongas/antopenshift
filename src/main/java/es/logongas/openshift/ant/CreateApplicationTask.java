@@ -31,7 +31,7 @@ public class CreateApplicationTask extends AbstractApplicationTask {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.createApplication(userName, password, domainName, applicationName, cartridgeName, scalable, gearProfileName);
+        openShiftUtil.createApplication(serverUrl, userName, password, domainName, applicationName, cartridgeName, scalable, gearProfileName);
     }
 
     /**

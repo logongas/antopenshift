@@ -26,7 +26,7 @@ public class DestroyAllApplicationsTask extends AbstractDomainTask {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.destroyAllApplications(userName, password, domainName);
+        openShiftUtil.destroyAllApplications(serverUrl, userName, password, domainName);
     }
     
 }

@@ -28,7 +28,7 @@ public class AddAliasTask extends AbstractApplicationTask {
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.addAlias(userName, password, domainName, applicationName, alias);
+        openShiftUtil.addAlias(serverUrl, userName, password, domainName, applicationName, alias);
     }  
     
     /**

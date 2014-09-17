@@ -32,20 +32,20 @@ public class ApplicationPropertyTask extends AbstractApplicationTask {
         String value;
 
         if ("SshUrl".equalsIgnoreCase(getApplicationProperty())) {
-            value = openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            value = openShiftUtil.getSshUrl(serverUrl, userName, password, domainName, applicationName);
         } else if ("SshUser".equalsIgnoreCase(getApplicationProperty())) {
-            String sshUrl=openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            String sshUrl=openShiftUtil.getSshUrl(serverUrl, userName, password, domainName, applicationName);
             value = getSSHInfo(sshUrl).user;
         } else if ("SshPort".equalsIgnoreCase(getApplicationProperty())) {
-            String sshUrl=openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            String sshUrl=openShiftUtil.getSshUrl(serverUrl, userName, password, domainName, applicationName);
             value = getSSHInfo(sshUrl).port;
         } else if ("SshHost".equalsIgnoreCase(getApplicationProperty())) {
-            String sshUrl=openShiftUtil.getSshUrl(userName, password, domainName, applicationName);
+            String sshUrl=openShiftUtil.getSshUrl(serverUrl, userName, password, domainName, applicationName);
             value = getSSHInfo(sshUrl).host;            
         } else if ("UUID".equalsIgnoreCase(getApplicationProperty())) {
-            value = openShiftUtil.getUUID(userName, password, domainName, applicationName);
+            value = openShiftUtil.getUUID(serverUrl, userName, password, domainName, applicationName);
         } else if ("GitUrl".equalsIgnoreCase(getApplicationProperty())) {
-            value = openShiftUtil.getGitUrl(userName, password, domainName, applicationName);
+            value = openShiftUtil.getGitUrl(serverUrl, userName, password, domainName, applicationName);
         } else {
             throw new BuildException("Los posibles valores de 'applicationProperty' son  'SshUrl' , 'GitUrl' o 'UUID'");
         }

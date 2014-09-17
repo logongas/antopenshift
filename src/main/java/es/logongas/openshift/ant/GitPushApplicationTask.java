@@ -31,7 +31,7 @@ public class GitPushApplicationTask extends AbstractApplicationTask {
     @Override
     public void execute() throws BuildException {
         try {
-            openShiftUtil.gitPushApplication(userName, password, domainName, applicationName, privateKeyFile, path);
+            openShiftUtil.gitPushApplication(serverUrl, userName, password, domainName, applicationName, privateKeyFile, path);
         } catch (IOException ex) {
             throw new BuildException(ex);
         } catch (GitAPIException ex) {

@@ -26,6 +26,6 @@ import org.apache.tools.ant.BuildException;
 public class StartApplicationTask extends AbstractApplicationTask  {
      @Override
     public void execute() throws BuildException {
-        openShiftUtil.startApplication(userName, password, domainName, applicationName);
+        openShiftUtil.startApplication(serverUrl, userName, password, domainName, applicationName);
     }      
 }

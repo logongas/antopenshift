@@ -26,6 +26,6 @@ import org.apache.tools.ant.BuildException;
 public class DestroyApplicationTask extends AbstractApplicationTask  {
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.destroyApplication(userName, password, domainName, applicationName);
+        openShiftUtil.destroyApplication(serverUrl, userName, password, domainName, applicationName);
     }    
 }
