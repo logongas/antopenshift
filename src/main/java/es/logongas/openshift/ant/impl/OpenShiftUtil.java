@@ -67,14 +67,14 @@ public class OpenShiftUtil {
 
     public void createDomain(String serverUrl, String userName, String password, String domainName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.hasDomain(domainName) == false) {
                 user.createDomain(domainName);
             }
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.hasDomain(domainName) == false) {
                 throw ex;
@@ -85,13 +85,13 @@ public class OpenShiftUtil {
 
     public void destroyDomain(String serverUrl, String userName, String password, String domainName, boolean force) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             domain.destroy(force);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.hasDomain(domainName) == true) {
                 throw ex;
@@ -102,7 +102,7 @@ public class OpenShiftUtil {
 
     public void destroyAllDomains(String serverUrl, String userName, String password, boolean force) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             List<IDomain> domains = user.getDomains();
 
@@ -112,7 +112,7 @@ public class OpenShiftUtil {
 
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.getDomains().isEmpty() == false) {
                 throw ex;
@@ -123,7 +123,7 @@ public class OpenShiftUtil {
 
     public void createApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName, boolean scalable, String gearProfileName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             ApplicationScale applicationScale;
             if (scalable == true) {
@@ -146,7 +146,7 @@ public class OpenShiftUtil {
             LOGGER.info("application ready.");
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -159,14 +159,14 @@ public class OpenShiftUtil {
 
     public void destroyApplication(String serverUrl, String userName, String password, String domainName, String applicationName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
             application.destroy();
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -179,7 +179,7 @@ public class OpenShiftUtil {
 
     public void destroyAllApplications(String serverUrl, String userName, String password, String domainName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             List<IApplication> applications = domain.getApplications();
@@ -188,7 +188,7 @@ public class OpenShiftUtil {
             }
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             List<IApplication> applications = domain.getApplications();
@@ -200,7 +200,7 @@ public class OpenShiftUtil {
     }
 
     public void startApplication(String serverUrl, String userName, String password, String domainName, String applicationName) {
-        IUser user = getUser(serverUrl,userName, password);
+        IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
@@ -214,7 +214,7 @@ public class OpenShiftUtil {
     }
 
     public void stopApplication(String serverUrl, String userName, String password, String domainName, String applicationName, boolean force) {
-        IUser user = getUser(serverUrl,userName, password);
+        IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
@@ -223,29 +223,44 @@ public class OpenShiftUtil {
     }
 
     public void restartApplication(String serverUrl, String userName, String password, String domainName, String applicationName) {
-        IUser user = getUser(serverUrl,userName, password);
 
-        IDomain domain = user.getDomain(domainName);
-        IApplication application = domain.getApplicationByName(applicationName);
-        application.restart();
-        LOGGER.info("Waiting for application " + application.getName() + " to become reachable...");
-        boolean accessible = application.waitForAccessible(TIME_OUT);
-        if (accessible == false) {
-            throw new RuntimeException("OpenShift application did not get reachable while timeout...");
+        try {
+            IUser user = getUser(serverUrl, userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+            application.restart();
+            LOGGER.info("Waiting for application " + application.getName() + " to become reachable...");
+            boolean accessible = application.waitForAccessible(TIME_OUT);
+            if (accessible == false) {
+                throw new RuntimeException("OpenShift application did not get reachable while timeout...");
+            }
+            LOGGER.info("application ready.");
+        } catch (RuntimeException ex) {
+            //Aunque de error comprobamos si realmente está accesible
+            IUser user = getUser(serverUrl, userName, password);
+
+            IDomain domain = user.getDomain(domainName);
+            IApplication application = domain.getApplicationByName(applicationName);
+
+            boolean accessible = application.waitForAccessible(TIME_OUT);
+            if (accessible == false) {
+                throw new RuntimeException("OpenShift application did not get reachable while timeout...");
+            }
+            LOGGER.info("application ready.");
         }
-        LOGGER.info("application ready.");
     }
 
     public void addEnvironmentVariable(String serverUrl, String userName, String password, String domainName, String applicationName, String environmentVariableName, String environmentVariableValue) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
             application.addEnvironmentVariable(environmentVariableName, environmentVariableValue);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -263,14 +278,14 @@ public class OpenShiftUtil {
 
     public void removeEnvironmentVariable(String serverUrl, String userName, String password, String domainName, String applicationName, String environmentVariableName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
             application.removeEnvironmentVariable(environmentVariableName);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -284,7 +299,7 @@ public class OpenShiftUtil {
 
     public void addCartridge(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -294,7 +309,7 @@ public class OpenShiftUtil {
             application.addEmbeddableCartridge(embeddableCartridge);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -307,7 +322,7 @@ public class OpenShiftUtil {
 
     public void removeCartridge(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -317,7 +332,7 @@ public class OpenShiftUtil {
             application.removeEmbeddedCartridge(embeddableCartridge);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -330,14 +345,14 @@ public class OpenShiftUtil {
 
     public void addPublicKey(String serverUrl, String userName, String password, String publicKeyName, String publicKeyFile) throws Exception {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             ISSHPublicKey iSSHPublicKey = new SSHPublicKey(publicKeyFile);
 
             user.putSSHKey(publicKeyName, iSSHPublicKey);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.getSSHKeyByName(publicKeyName) == null) {
                 throw ex;
@@ -347,12 +362,12 @@ public class OpenShiftUtil {
 
     public void removePublicKey(String serverUrl, String userName, String password, String publicKeyName) throws Exception {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             user.deleteKey(publicKeyName);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.getSSHKeyByName(publicKeyName) != null) {
                 throw ex;
@@ -362,7 +377,7 @@ public class OpenShiftUtil {
 
     public void removeAllPublicKeys(String serverUrl, String userName, String password) throws Exception {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             List<IOpenShiftSSHKey> openShiftSSHKeys = user.getSSHKeys();
 
@@ -371,7 +386,7 @@ public class OpenShiftUtil {
             }
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             if (user.getSSHKeys().isEmpty() == false) {
                 throw ex;
@@ -390,14 +405,14 @@ public class OpenShiftUtil {
         kpair.dispose();
     }
 
-    private IUser getUser(String serverUrl,String userName, String password) {
-        OpenShiftConnectionFactory openShiftConnectionFactory=new OpenShiftConnectionFactory();
+    private IUser getUser(String serverUrl, String userName, String password) {
+        OpenShiftConnectionFactory openShiftConnectionFactory = new OpenShiftConnectionFactory();
         IOpenShiftConnection openShiftConnection;
-        if ((serverUrl == null) ||(serverUrl.trim().length() == 0)) {
+        if ((serverUrl == null) || (serverUrl.trim().length() == 0)) {
             LOGGER.info("Sin información del servidor. Conectado a OpenShift Online");
             openShiftConnection = openShiftConnectionFactory.getConnection("ant-openshift", userName, password);
         } else {
-            openShiftConnection = openShiftConnectionFactory.getConnection("ant-openshift", userName, password,serverUrl);
+            openShiftConnection = openShiftConnectionFactory.getConnection("ant-openshift", userName, password, serverUrl);
         }
         IUser user = openShiftConnection.getUser();
 
@@ -406,7 +421,7 @@ public class OpenShiftUtil {
 
     public void addAlias(String serverUrl, String userName, String password, String domainName, String applicationName, String alias) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -414,7 +429,7 @@ public class OpenShiftUtil {
             application.addAlias(alias);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -427,7 +442,7 @@ public class OpenShiftUtil {
 
     public void removeAlias(String serverUrl, String userName, String password, String domainName, String applicationName, String alias) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -435,7 +450,7 @@ public class OpenShiftUtil {
             application.removeAlias(alias);
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -448,7 +463,7 @@ public class OpenShiftUtil {
 
     public void removeAllAlias(String serverUrl, String userName, String password, String domainName, String applicationName) {
         try {
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
@@ -458,19 +473,19 @@ public class OpenShiftUtil {
             }
         } catch (RuntimeException ex) {
             //Aunque de error comprobamos si realmente está
-            IUser user = getUser(serverUrl,userName, password);
+            IUser user = getUser(serverUrl, userName, password);
 
             IDomain domain = user.getDomain(domainName);
             IApplication application = domain.getApplicationByName(applicationName);
 
-            if (application.getAliases().isEmpty()==false) {
+            if (application.getAliases().isEmpty() == false) {
                 throw ex;
             }
         }
     }
 
     public void gitCloneApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException {
-        IUser user = getUser(serverUrl,userName, password);
+        IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
@@ -484,7 +499,6 @@ public class OpenShiftUtil {
         cloneCommand.setTimeout(20);
         cloneCommand.setProgressMonitor(new TextProgressMonitor());
         cloneCommand.call();
-        
 
     }
 
@@ -507,7 +521,7 @@ public class OpenShiftUtil {
 
     public String getSshUrl(String serverUrl, String userName, String password, String domainName, String applicationName) {
 
-        IUser user = getUser(serverUrl,userName, password);
+        IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
@@ -517,7 +531,7 @@ public class OpenShiftUtil {
 
     public String getUUID(String serverUrl, String userName, String password, String domainName, String applicationName) {
 
-        IUser user = getUser(serverUrl,userName, password);
+        IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
@@ -527,7 +541,7 @@ public class OpenShiftUtil {
 
     public String getGitUrl(String serverUrl, String userName, String password, String domainName, String applicationName) {
 
-        IUser user = getUser(serverUrl,userName, password);
+        IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
         IApplication application = domain.getApplicationByName(applicationName);
@@ -549,14 +563,14 @@ public class OpenShiftUtil {
             try {
                 Field field = Class.forName(OpenSshConfig.Host.class.getName()).getDeclaredField("strictHostKeyChecking");
                 field.setAccessible(true);
-                field.set(host,"no");
+                field.set(host, "no");
                 JSch jsch = getJSch(host, FS.DETECTED);
                 jsch.addIdentity(privateKeyFile);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
-        
+
     }
 
 }
