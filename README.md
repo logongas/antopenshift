@@ -42,7 +42,7 @@ Añade un alias a una aplicación.
     alias="www.miapp.com"
 />
 ```
-
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -54,7 +54,7 @@ Añade un alias a una aplicación.
 Añade un cartucho a una aplicación
 
 ```
-<addcartridge     
+<addcartridge 
     userName="myaccount@mymail.com" 
     password="s3cret" 
     domainName="mydomain" 
@@ -62,7 +62,7 @@ Añade un cartucho a una aplicación
     cartridgeName="mysql" 
 />
 ```
-
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -84,6 +84,7 @@ Añade una nueva variable de entorno a la aplicación
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -104,6 +105,7 @@ Añade una nueva variable de entorno a la aplicación
 
 Añade una nueva clave pública a la cuenta de OpenShift
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `publicKeyName`: Nombre de la clave pública que se añade
@@ -124,6 +126,7 @@ Crea una nueva propiedad de Ant con el valor de una propiedad específica de una
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -148,6 +151,7 @@ Crea una nueva aplicación dentro de un dominio
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio al que se le añade la aplicación
@@ -167,6 +171,7 @@ Crea un nuevo dominio
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del nuevo dominio a añadir
@@ -199,6 +204,7 @@ Destruye todas las aplicaciones de un dominio.
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio al que se le borran todas las aplicaciones que tiene.
@@ -215,6 +221,7 @@ Borra todos los dominios de una cuenta
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName` : Nombre de la cuenta de OpenShift (Es el correo electrónico) de la que se borran todos los dominios.
   * `password` : Contraseña de la cuenta de OpenShift.
   * `force` : Si `force` vale `false` no se borrará el dominio si contiene aplicaciones. Pero si `force` vale `true` se borrarán tambien todas las aplicaciones que contiene.
@@ -232,6 +239,7 @@ Borra una aplicación de un dominio
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio donde se encuentra la aplicación
@@ -251,6 +259,7 @@ Borra un dominio de una cuenta
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio donde se encuentra la aplicación
@@ -272,6 +281,7 @@ Clona un repositorio de una aplicación de OpenShift usando claves privadas.
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio donde se encuentra la aplicación
@@ -294,6 +304,7 @@ Hace un push de un repositorio de una aplicación de OpenShift usando claves pri
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio donde se encuentra la aplicación
@@ -331,6 +342,7 @@ Quita el alias de una aplicación
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -350,6 +362,7 @@ Quita todos los alias de una aplicación
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -366,6 +379,7 @@ Quita todas las claves públicas que permiten acceder a esta cuenta de OpenShift
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
 
@@ -383,6 +397,7 @@ Quita un cartridge de una aplicación. No quita el cartucho *principal* sino los
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -403,6 +418,7 @@ Quita la definición de una variable de entorno
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -422,6 +438,7 @@ Elimina una clave pública que permite acceder a OpenShift
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `publicKeyName` : Nombre de la clave pública
@@ -439,6 +456,7 @@ Reinicia una aplicación
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -457,6 +475,7 @@ Inicia una aplicación
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
@@ -475,6 +494,7 @@ Detiene una aplicación
 />
 ```
 
+  * `serverUrl`: La URL del servidor de OpenShift. Es optativo. Si no se indica se usará el servifor de OpenShift Online
   * `userName`: Nombre de la cuenta de OpenShift (Es el correo electrónico)
   * `password`:Contraseña de la cuenta de OpenShift
   * `domainName`:Nombre del dominio
