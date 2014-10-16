@@ -39,10 +39,14 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.ListBranchCommand;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.TextProgressMonitor;
 import org.eclipse.jgit.transport.JschConfigSessionFactory;
 import org.eclipse.jgit.transport.OpenSshConfig;
@@ -549,6 +553,63 @@ public class OpenShiftUtil {
 
     }
 
+    public boolean existsLocalBranch(String repositoryPath, String branchName) {
+        return existsBranch(repositoryPath, "refs/heads/" + branchName);
+    }
+
+    public boolean existsRemoteBranch(String repositoryPath, String branchName) {
+        return existsBranch(repositoryPath, "refs/remotes/" + branchName);
+    }
+
+    private boolean existsBranch(String repositoryPath, String branchName) {
+        try {
+            Git git = Git.open(new File(repositoryPath));
+
+            ListBranchCommand listBranchCommand = git.branchList();
+            listBranchCommand.setListMode(ListBranchCommand.ListMode.ALL);
+            List<Ref> refs = listBranchCommand.call();
+            for (Ref ref : refs) {
+                if (ref.getName().equals(branchName)) {
+                    return true;
+                }
+            }
+
+            return false;
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (GitAPIException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public String getCurrentBranch(String repositoryPath) {
+        try {
+            Git git = Git.open(new File(repositoryPath));
+
+            return git.getRepository().getBranch();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    } 
+    
+    public boolean isRepositoryClean(String repositoryPath) {
+        try {
+            Git git = Git.open(new File(repositoryPath));
+
+            List<DiffEntry> diffEntries=git.diff().call();
+                    
+            if (diffEntries==null) {
+                return true;
+            } else {
+                return diffEntries.isEmpty();
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (GitAPIException ex) {
+            throw new RuntimeException(ex);
+        }
+    }     
+    
     private class CustomConfigSessionFactory extends JschConfigSessionFactory {
 
         String privateKeyFile;

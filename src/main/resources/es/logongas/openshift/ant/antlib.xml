@@ -23,10 +23,13 @@
     <taskdef name="createapplication" classname="es.logongas.openshift.ant.CreateApplicationTask" />
     <taskdef name="createdomain" classname="es.logongas.openshift.ant.CreateDomainTask" />
     <taskdef name="createkeypair" classname="es.logongas.openshift.ant.CreateKeyPairTask" />
+    <taskdef name="currentbranchproperty" classname="es.logongas.openshift.ant.CurrentBranchPropertyTask" />
     <taskdef name="destroyapplication" classname="es.logongas.openshift.ant.DestroyApplicationTask" />
     <taskdef name="destroydomain" classname="es.logongas.openshift.ant.DestroyDomainTask" />
     <taskdef name="destroyallapplications" classname="es.logongas.openshift.ant.DestroyAllApplicationsTask" />
     <taskdef name="destroyalldomains" classname="es.logongas.openshift.ant.DestroyAllDomainsTask" />    
+    <taskdef name="existslocalbranchproperty" classname="es.logongas.openshift.ant.ExistsLocalBranchPropertyTask" />    
+    <taskdef name="existsremotebranchproperty" classname="es.logongas.openshift.ant.ExistsRemoteBranchPropertyTask" />    
     <taskdef name="removeallpublickeys" classname="es.logongas.openshift.ant.RemoveAllPublicKeysTask" />
     <taskdef name="removecartridge" classname="es.logongas.openshift.ant.RemoveCartridgeTask" />
     <taskdef name="removeenvironmentvariable" classname="es.logongas.openshift.ant.RemoveEnvironmentVariableTask" />
