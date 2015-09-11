@@ -500,7 +500,7 @@ public class OpenShiftUtil {
         CloneCommand cloneCommand = new CloneCommand();
         cloneCommand.setURI(gitURL);
         cloneCommand.setDirectory(new File(path));
-        cloneCommand.setTimeout(20);
+        cloneCommand.setTimeout(40);
         cloneCommand.setProgressMonitor(new TextProgressMonitor());
         cloneCommand.call();
 
@@ -511,8 +511,9 @@ public class OpenShiftUtil {
         SshSessionFactory.setInstance(new CustomConfigSessionFactory(privateKeyFile));
 
         Git git = Git.open(new File(path));
-
+        
         PushCommand push = git.push();
+        push.setTimeout(40);
         push.setProgressMonitor(new TextProgressMonitor());
         LOGGER.info("Finalizado push");
         LOGGER.info("Mostrando resultados");
