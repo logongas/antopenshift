@@ -44,6 +44,7 @@ import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand;
 import org.eclipse.jgit.api.PushCommand;
+import org.eclipse.jgit.api.TransportConfigCallback;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.TransportException;
@@ -55,6 +56,7 @@ import org.eclipse.jgit.transport.OpenSshConfig;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.RemoteSession;
 import org.eclipse.jgit.transport.SshSessionFactory;
+import org.eclipse.jgit.transport.Transport;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
@@ -506,6 +508,11 @@ public class OpenShiftUtil {
         cloneCommand.setDirectory(new File(path));
         cloneCommand.setTimeout(500);
         cloneCommand.setProgressMonitor(new TextProgressMonitor());
+        cloneCommand.setTransportConfigCallback(new TransportConfigCallback() {
+            public void configure(Transport transport) {
+                transport.setTimeout(500);
+            }
+        });
         cloneCommand.call();
 
     }
@@ -516,12 +523,17 @@ public class OpenShiftUtil {
 
         Git git = Git.open(new File(path));
         
-        PushCommand push = git.push();
-        push.setTimeout(500);
-        push.setProgressMonitor(new TextProgressMonitor());
+        PushCommand pushCommand = git.push();
+        pushCommand.setTimeout(500);
+        pushCommand.setProgressMonitor(new TextProgressMonitor());
+        pushCommand.setTransportConfigCallback(new TransportConfigCallback() {
+            public void configure(Transport transport) {
+                transport.setTimeout(500);
+            }
+        });        
         LOGGER.info("Finalizado push");
         LOGGER.info("Mostrando resultados");
-        Iterable<PushResult> pushResults = push.call();
+        Iterable<PushResult> pushResults = pushCommand.call();
         for (PushResult pushResult : pushResults) {
             LOGGER.info(pushResult.getMessages());
         }
