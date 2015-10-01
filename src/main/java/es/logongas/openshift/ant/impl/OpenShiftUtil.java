@@ -495,6 +495,15 @@ public class OpenShiftUtil {
     }
 
     public void gitCloneApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException {
+        try {
+            gitCloneApplicationCore(serverUrl, userName, password, domainName, applicationName, privateKeyFile, path);
+        } catch (Exception ex) {
+            //Lo volvemos a intentar
+            gitCloneApplicationCore(serverUrl, userName, password, domainName, applicationName, privateKeyFile, path);
+        }
+    }
+
+    private void gitCloneApplicationCore(String serverUrl, String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException {
         IUser user = getUser(serverUrl, userName, password);
 
         IDomain domain = user.getDomain(domainName);
@@ -518,11 +527,20 @@ public class OpenShiftUtil {
     }
 
     public void gitPushApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException, IOException {
+        try {
+            gitPushApplicationCore(serverUrl, userName, password, domainName, applicationName, privateKeyFile, path);
+        } catch (Exception ex) {
+            gitPushApplicationCore(serverUrl, userName, password, domainName, applicationName, privateKeyFile, path);
+        }
+
+    }
+
+    private void gitPushApplicationCore(String serverUrl, String userName, String password, String domainName, String applicationName, String privateKeyFile, String path) throws GitAPIException, IOException {
 
         SshSessionFactory.setInstance(new CustomConfigSessionFactory(privateKeyFile));
 
         Git git = Git.open(new File(path));
-        
+
         PushCommand pushCommand = git.push();
         pushCommand.setTimeout(500);
         pushCommand.setProgressMonitor(new TextProgressMonitor());
@@ -530,7 +548,7 @@ public class OpenShiftUtil {
             public void configure(Transport transport) {
                 transport.setTimeout(500);
             }
-        });        
+        });
         LOGGER.info("Finalizado push");
         LOGGER.info("Mostrando resultados");
         Iterable<PushResult> pushResults = pushCommand.call();
@@ -607,15 +625,15 @@ public class OpenShiftUtil {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-    } 
-    
+    }
+
     public boolean isRepositoryClean(String repositoryPath) {
         try {
             Git git = Git.open(new File(repositoryPath));
 
-            List<DiffEntry> diffEntries=git.diff().call();
-                    
-            if (diffEntries==null) {
+            List<DiffEntry> diffEntries = git.diff().call();
+
+            if (diffEntries == null) {
                 return true;
             } else {
                 return diffEntries.isEmpty();
@@ -625,8 +643,8 @@ public class OpenShiftUtil {
         } catch (GitAPIException ex) {
             throw new RuntimeException(ex);
         }
-    }     
-    
+    }
+
     private class CustomConfigSessionFactory extends JschConfigSessionFactory {
 
         String privateKeyFile;
@@ -651,11 +669,9 @@ public class OpenShiftUtil {
 
         @Override
         public synchronized RemoteSession getSession(URIish uri, CredentialsProvider credentialsProvider, FS fs, int tms) throws TransportException {
-            return super.getSession(uri, credentialsProvider, fs, 300000); 
+            return super.getSession(uri, credentialsProvider, fs, 300000);
         }
 
-        
-        
     }
 
 }
