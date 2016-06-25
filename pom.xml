@@ -4,7 +4,7 @@
 
     <groupId>es.logongas.openshift.ant</groupId>
     <artifactId>antopenshift</artifactId>
-    <version>1.18.0</version>
+    <version>1.20.0</version>
     <packaging>jar</packaging>
 
     <name>antopenshift</name>

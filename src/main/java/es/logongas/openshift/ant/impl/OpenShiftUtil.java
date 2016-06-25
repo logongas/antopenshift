@@ -23,6 +23,7 @@ import com.openshift.client.IApplication;
 import com.openshift.client.IDomain;
 import com.openshift.client.IEnvironmentVariable;
 import com.openshift.client.IGearProfile;
+import com.openshift.client.IHttpClient.ISSLCertificateCallback;
 import com.openshift.client.IOpenShiftConnection;
 import com.openshift.client.IOpenShiftSSHKey;
 import com.openshift.client.ISSHPublicKey;
@@ -37,9 +38,10 @@ import com.openshift.internal.client.GearProfile;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
+import javax.net.ssl.SSLSession;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand;
@@ -131,7 +133,7 @@ public class OpenShiftUtil {
         }
     }
 
-    public void createApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName, boolean scalable, String gearProfileName,String region) {
+    public void createApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName, boolean scalable, String gearProfileName, String region) {
         try {
             IUser user = getUser(serverUrl, userName, password);
 
@@ -144,16 +146,16 @@ public class OpenShiftUtil {
 
             IStandaloneCartridge cartridge = new StandaloneCartridge(cartridgeName);
             IGearProfile gearProfile = new GearProfile(gearProfileName);
-            
+
             IDomain domain = user.getDomain(domainName);
-            
+
             IApplication application;
-            if ((region==null) || (region.trim().equals(""))) {
+            if ((region == null) || (region.trim().equals(""))) {
                 application = domain.createApplication(applicationName, cartridge, applicationScale, gearProfile);
             } else {
                 application = domain.createApplication(userName, cartridge, applicationScale, region, gearProfile);
             }
-            
+
             LOGGER.info("Waiting for application " + application.getName() + " to become reachable...");
             boolean accessible = application.waitForAccessible(TIME_OUT);
             if (accessible == false) {
@@ -423,12 +425,13 @@ public class OpenShiftUtil {
 
     private IUser getUser(String serverUrl, String userName, String password) {
         OpenShiftConnectionFactory openShiftConnectionFactory = new OpenShiftConnectionFactory();
+        ISSLCertificateCallback iSSLCertificateCallback=new ISSLCertificateCallbackImplAllowAll();
         IOpenShiftConnection openShiftConnection;
         if ((serverUrl == null) || (serverUrl.trim().length() == 0)) {
             LOGGER.info("Sin información del servidor. Conectado a OpenShift Online");
             openShiftConnection = openShiftConnectionFactory.getConnection("ant-openshift", userName, password);
         } else {
-            openShiftConnection = openShiftConnectionFactory.getConnection("ant-openshift", userName, password, serverUrl);
+            openShiftConnection = openShiftConnectionFactory.getConnection("ant-openshift", userName, password, serverUrl,iSSLCertificateCallback);
         }
         IUser user = openShiftConnection.getUser();
 
@@ -679,5 +682,18 @@ public class OpenShiftUtil {
         }
 
     }
+    
+    private class ISSLCertificateCallbackImplAllowAll implements com.openshift.client.IHttpClient.ISSLCertificateCallback {
+
+        public boolean allowCertificate(X509Certificate[] chain) {
+            return true;
+        }
+
+        public boolean allowHostname(String hostname, SSLSession session) {
+            return true;
+        }
+    
+}
+    
 
 }
