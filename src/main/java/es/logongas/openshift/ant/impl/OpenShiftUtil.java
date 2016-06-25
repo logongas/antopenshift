@@ -131,7 +131,7 @@ public class OpenShiftUtil {
         }
     }
 
-    public void createApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName, boolean scalable, String gearProfileName) {
+    public void createApplication(String serverUrl, String userName, String password, String domainName, String applicationName, String cartridgeName, boolean scalable, String gearProfileName,String region) {
         try {
             IUser user = getUser(serverUrl, userName, password);
 
@@ -144,10 +144,16 @@ public class OpenShiftUtil {
 
             IStandaloneCartridge cartridge = new StandaloneCartridge(cartridgeName);
             IGearProfile gearProfile = new GearProfile(gearProfileName);
-
+            
             IDomain domain = user.getDomain(domainName);
-            IApplication application = domain.createApplication(applicationName, cartridge, applicationScale, gearProfile);
-
+            
+            IApplication application;
+            if ((region==null) || (region.trim().equals(""))) {
+                application = domain.createApplication(applicationName, cartridge, applicationScale, gearProfile);
+            } else {
+                application = domain.createApplication(userName, cartridge, applicationScale, region, gearProfile);
+            }
+            
             LOGGER.info("Waiting for application " + application.getName() + " to become reachable...");
             boolean accessible = application.waitForAccessible(TIME_OUT);
             if (accessible == false) {

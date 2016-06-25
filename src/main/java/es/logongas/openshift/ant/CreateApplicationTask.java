@@ -26,12 +26,14 @@ import org.apache.tools.ant.BuildException;
 public class CreateApplicationTask extends AbstractApplicationTask {
 
     private String cartridgeName;
-    private String gearProfileName=IGearProfile.SMALL.getName();
+    private String gearProfileName="small";
+    private String region=null;
     private boolean scalable=false;
+    
     
     @Override
     public void execute() throws BuildException {
-        openShiftUtil.createApplication(serverUrl, userName, password, domainName, applicationName, cartridgeName, scalable, gearProfileName);
+        openShiftUtil.createApplication(serverUrl, userName, password, domainName, applicationName, cartridgeName, scalable, gearProfileName,region);
     }
 
     /**
@@ -74,5 +76,19 @@ public class CreateApplicationTask extends AbstractApplicationTask {
      */
     public void setScalable(boolean scalable) {
         this.scalable = scalable;
+    }
+
+    /**
+     * @return the region
+     */
+    public String getRegion() {
+        return region;
+    }
+
+    /**
+     * @param region the region to set
+     */
+    public void setRegion(String region) {
+        this.region = region;
     }
 }
